@@ -1,0 +1,28 @@
+---
+# This Task copy spark tarball to special host and configure some parameters
+
+- name: Unpackage Spark tarball to /usr/local
+  vars:
+    createFile: /usr/local/{{ sparkDir }}/conf/spark-env.sh.template
+  unarchive: src={{ sparkTarballName }} dest=/usr/local creates={{ createFile }}
+  become: yes
+
+- name: Set user and group for hadoop dir
+  file: path=/usr/local/{{ sparkDir }} state=directory recurse=yes
+    owner={{ specialUser }} group={{ specialUser }}
+  become: yes
+
+- name: Copy a new spark-env.sh file
+  copy: src=/usr/local/{{ sparkDir }}/conf/spark-env.sh.template 
+    dest=/usr/local/{{ sparkDir }}/conf/spark-env.sh remote_src=True
+  become: yes
+  become_user: "{{ specialUser }}"
+
+- name: Set JAVA_HOME and HADOOP_CONF_DIR to hadoop-env.sh file
+  lineinfile: path=/usr/local/{{ sparkDir }}/conf/spark-env.sh line={{ item }} state=present
+  with_items:
+  - 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle'
+  - 'export HADOOP_CONF_DIR=/usr/local/{{ hadoopDir }}/etc/hadoop'
+  become: yes
+  become_user: "{{ specialUser }}"
+

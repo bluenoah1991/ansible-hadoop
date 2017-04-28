@@ -29,7 +29,7 @@
 	</property>
 	<property>
 		<name>yarn.resourcemanager.nodes.include-path</name>
-		<value>/usr/local/{{ hadoopDir }}/etc/hadoop/yarn-workers</value>
+		<value>/usr/local/{{ hadoopDir }}/etc/hadoop/yarn-slaves</value>
 	</property>
 
 </configuration>

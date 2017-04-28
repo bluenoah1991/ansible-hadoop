@@ -38,17 +38,24 @@
   roles:
   - hadoop-init
 
-- hosts: hadoop_namenode
+- hosts: hadoop_spark
   remote_user: ubuntu
   roles:
-  - hadoop-start-dfs
+  - hadoop-spark
   tags:
-  - start
+  - spark
 
-- hosts: hadoop_resourcemanager
-  remote_user: ubuntu
-  roles:
-  - hadoop-start-yarn
-  tags:
-  - start
+#- hosts: hadoop_namenode
+#  remote_user: ubuntu
+#  roles:
+#  - hadoop-start-dfs
+#  tags:
+#  - start
+#
+#- hosts: hadoop_resourcemanager
+#  remote_user: ubuntu
+#  roles:
+#  - hadoop-start-yarn
+#  tags:
+#  - start
 

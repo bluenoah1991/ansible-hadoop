@@ -6,20 +6,20 @@
   become: yes
   become_user: "{{ specialUser }}"
 
-- name: Append datanode hostnames to workers file
-  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/hdfs-workers 
+- name: Append datanode hostnames to slaves file
+  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/hdfs-slaves 
     line={{ hostvars[item]['hostName'] }} create=yes
   with_items: "{{ groups[dataNodeGroupName] }}"
   become: yes
   become_user: "{{ specialUser }}"
 
-- name: Empty default workers file
-  copy: content='' dest=/usr/local/{{ hadoopDir }}/etc/hadoop/workers
+- name: Empty default slaves file
+  copy: content='' dest=/usr/local/{{ hadoopDir }}/etc/hadoop/slaves
   become: yes
   become_user: "{{ specialUser }}"
 
-- name: Append datanode hostnames to default workers file
-  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/workers 
+- name: Append datanode hostnames to default slaves file
+  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/slaves 
     line={{ hostvars[item]['hostName'] }} create=yes
   with_items: "{{ groups[dataNodeGroupName] }}"
   become: yes

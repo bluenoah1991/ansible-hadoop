@@ -9,20 +9,20 @@
   become: yes
   become_user: "{{ specialUser }}"
 
-- name: Append nodemanager hostnames to workers file
-  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/yarn-workers 
+- name: Append nodemanager hostnames to slaves file
+  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/yarn-slaves 
     line={{ hostvars[item]['hostName'] }} create=yes
   with_items: "{{ groups[nmGroupName] }}"
   become: yes
   become_user: "{{ specialUser }}"
 
-- name: Empty default workers file
-  copy: content='' dest=/usr/local/{{ hadoopDir }}/etc/hadoop/workers
+- name: Empty default slaves file
+  copy: content='' dest=/usr/local/{{ hadoopDir }}/etc/hadoop/slaves
   become: yes
   become_user: "{{ specialUser }}"
 
-- name: Append nodemanager hostnames to default workers file
-  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/workers 
+- name: Append nodemanager hostnames to default slaves file
+  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/slaves 
     line={{ hostvars[item]['hostName'] }} create=yes
   with_items: "{{ groups[nmGroupName] }}"
   become: yes

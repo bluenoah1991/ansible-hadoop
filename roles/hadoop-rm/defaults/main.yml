@@ -4,4 +4,4 @@
 specialUser: hadoop
 rmGroupName: hadoop_resourcemanager
 nmGroupName: hadoop_nodemanagers
-hadoopDir: hadoop-3.0.0-alpha2
+hadoopDir: hadoop-2.7.3

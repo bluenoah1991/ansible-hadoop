@@ -3,5 +3,5 @@
 
 specialUser: hadoop
 nameNodeGroupName: hadoop_namenode
-hadoopTarballName: hadoop-3.0.0-alpha2.tar.gz
-hadoopDir: hadoop-3.0.0-alpha2
+hadoopTarballName: hadoop-2.7.3.tar.gz
+hadoopDir: hadoop-2.7.3

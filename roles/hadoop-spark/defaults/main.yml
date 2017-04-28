@@ -1,0 +1,7 @@
+---
+# Default variables
+
+specialUser: hadoop
+sparkTarballName: spark-2.1.0-bin-hadoop2.7.tgz
+sparkDir: spark-2.1.0-bin-hadoop2.7
+hadoopDir: hadoop-2.7.3

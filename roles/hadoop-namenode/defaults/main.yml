@@ -4,4 +4,4 @@
 specialUser: hadoop
 dataNodeGroupName: hadoop_datanodes
 nameNodeDataDir: /data
-hadoopDir: hadoop-3.0.0-alpha2
+hadoopDir: hadoop-2.7.3
