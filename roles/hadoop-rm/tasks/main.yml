@@ -1,0 +1,30 @@
+---
+# This Task configure resourcemanager
+
+- name: Configure etc/hadoop/yarn-site.yml file
+  vars:
+    rmAddress: "{{ groups[rmGroupName][0] }}"
+    rmHostName: "{{ hostvars[rmAddress]['hostName'] }}"
+  template: src=templates/yarn-site.xml dest=/usr/local/{{ hadoopDir }}/etc/hadoop/yarn-site.xml backup=yes
+  become: yes
+  become_user: "{{ specialUser }}"
+
+- name: Append nodemanager hostnames to workers file
+  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/yarn-workers 
+    line={{ hostvars[item]['hostName'] }} create=yes
+  with_items: "{{ groups[nmGroupName] }}"
+  become: yes
+  become_user: "{{ specialUser }}"
+
+- name: Empty default workers file
+  copy: content='' dest=/usr/local/{{ hadoopDir }}/etc/hadoop/workers
+  become: yes
+  become_user: "{{ specialUser }}"
+
+- name: Append nodemanager hostnames to default workers file
+  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/workers 
+    line={{ hostvars[item]['hostName'] }} create=yes
+  with_items: "{{ groups[nmGroupName] }}"
+  become: yes
+  become_user: "{{ specialUser }}"
+

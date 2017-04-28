@@ -1,0 +1,12 @@
+---
+# This Task configure datanode
+
+- name: Configure etc/hadoop/hdfs-site.yml file
+  template: src=templates/hdfs-site.xml dest=/usr/local/{{ hadoopDir }}/etc/hadoop/hdfs-site.xml backup=yes
+  become: yes
+  become_user: "{{ specialUser }}"
+
+- name: Create HDFS data dir
+  file: path={{ dataNodeDataDir }} state=directory 
+    owner={{ specialUser }} group={{ specialUser }}
+  become: yes

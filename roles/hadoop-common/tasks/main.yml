@@ -1,0 +1,31 @@
+---
+# This Task copy hadoop tarball to all host and configure some parameters
+
+- name: Unpackage Hadoop tarball to /usr/local
+  vars:
+    createFile: /usr/local/{{ hadoopDir }}/etc/hadoop/core-site.xml
+  unarchive: src={{ hadoopTarballName }} dest=/usr/local creates={{ createFile }}
+  become: yes
+
+- name: Set user and group for hadoop dir
+  file: path=/usr/local/{{ hadoopDir }} state=directory recurse=yes
+    owner={{ specialUser }} group={{ specialUser }}
+  become: yes
+
+- name: Configure etc/hadoop/core-site.xml file
+  vars:
+    nameNodeAddress: "{{ groups[nameNodeGroupName][0] }}"
+    nameNodeHostName: "{{ hostvars[nameNodeAddress]['hostName'] }}"
+  template: src=templates/core-site.xml dest=/usr/local/{{ hadoopDir }}/etc/hadoop/core-site.xml backup=yes
+  become: yes
+  become_user: "{{ specialUser }}"
+
+- name: Set JAVA_HOME to hadoop-env.sh
+  lineinfile: path=/usr/local/{{ hadoopDir }}/etc/hadoop/hadoop-env.sh line={{ item }} state=present
+  with_items:
+  - 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle'
+  - 'export HADOOP_CONF_DIR=/usr/local/{{ hadoopDir }}/etc/hadoop'
+  - 'export HDFS_NAMENODE_USER={{ specialUser }}'
+  - 'export HDFS_DATANODE_USER={{ specialUser }}'
+  become: yes
+  become_user: "{{ specialUser }}"

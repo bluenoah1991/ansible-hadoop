@@ -1,0 +1,7 @@
+---
+# This Task start all dfs nodes
+
+- name: Start all dfs nodes
+  shell: /usr/local/{{ hadoopDir }}/sbin/start-dfs.sh
+  become: yes
+  become_user: "{{ specialUser }}"

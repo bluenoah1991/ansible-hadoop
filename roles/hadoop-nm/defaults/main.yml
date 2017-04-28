@@ -1,0 +1,6 @@
+---
+# The default variables
+
+specialUser: hadoop
+rmGroupName: hadoop_resourcemanager
+hadoopDir: hadoop-3.0.0-alpha2

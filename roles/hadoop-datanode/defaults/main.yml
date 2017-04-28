@@ -1,0 +1,6 @@
+---
+# The default variables
+
+specialUser: hadoop
+dataNodeDataDir: /data
+hadoopDir: hadoop-3.0.0-alpha2

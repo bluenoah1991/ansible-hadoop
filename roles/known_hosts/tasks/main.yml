@@ -1,0 +1,13 @@
+---
+# The Task scan all host and append public key to known_hosts file
+
+- name: Scan host and save public key files
+  shell: ssh-keyscan {{ hostvars[inventory_hostname]['hostName'] }}
+  register: pubkey
+
+- name: Append public key to known_hosts file
+  known_hosts: name={{ hostvars[item]['hostName'] }} key={{ hostvars[item].pubkey.stdout }}
+  with_items: "{{ groups[hadoopGroupName] }}"
+  become: yes
+  become_user: "{{ specialUser }}"
+

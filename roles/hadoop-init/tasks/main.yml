@@ -1,0 +1,8 @@
+---
+# This Task initialize hadoop cluster
+
+- name: Format a new distributed filesystem
+  shell: /usr/local/{{ hadoopDir }}/bin/hdfs namenode -format {{ clusterName }} -force
+  become: yes
+  become_user: "{{ specialUser }}"
+

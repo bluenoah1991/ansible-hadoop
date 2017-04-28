@@ -1,0 +1,17 @@
+---
+# This Task set hostname mapping to all host
+
+- name: Set local machine hostname
+  hostname: name={{ hostvars[inventory_hostname]['hostName'] }}
+  become: yes
+
+- name: Write hostname to /etc/hostname file
+  vars:
+    hostname: "{{ hostvars[inventory_hostname]['hostName'] }}"
+  copy: content={{ hostname }} dest=/etc/hostname
+  become: yes
+
+- name: Build hosts file
+  lineinfile: dest=/etc/hosts line="{{ item }}\t{{ hostvars[item]['hostName'] }}" state=present
+  with_items: "{{ groups[hadoopGroupName] }}"
+  become: yes

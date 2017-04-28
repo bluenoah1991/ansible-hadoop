@@ -1,0 +1,11 @@
+---
+# This Task configure nodemanager
+
+- name: Configure etc/hadoop/yarn-site.yml file
+  vars:
+    rmAddress: "{{ groups[rmGroupName][0] }}"
+    rmHostName: "{{ hostvars[rmAddress]['hostName'] }}"
+  template: src=templates/yarn-site.xml dest=/usr/local/{{ hadoopDir }}/etc/hadoop/yarn-site.xml backup=yes
+  become: yes
+  become_user: "{{ specialUser }}"
+

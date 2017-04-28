@@ -1,0 +1,10 @@
+---
+# This Task create a new user
+
+- name: Create new group
+  group: name={{ specialUser }}
+  become: yes
+
+- name: Create new user
+  user: name={{ specialUser }} group={{ specialUser }} shell=/bin/bash
+  become: yes

@@ -1,0 +1,54 @@
+---
+- hosts: hadoop
+  remote_user: ubuntu
+  roles:
+  - hostname
+  - common
+  - new-user
+  - ssl
+  - known_hosts
+  - oracle-java8
+
+- hosts: hadoop_namenode
+  remote_user: ubuntu
+  roles:
+  - hadoop-common
+  - hadoop-namenode
+
+- hosts: hadoop_datanodes
+  remote_user: ubuntu
+  roles:
+  - hadoop-common
+  - hadoop-datanode
+
+- hosts: hadoop_resourcemanager
+  remote_user: ubuntu
+  roles:
+  - hadoop-common
+  - hadoop-rm
+
+- hosts: hadoop_nodemanagers
+  remote_user: ubuntu
+  roles:
+  - hadoop-common
+  - hadoop-nm
+
+- hosts: hadoop_namenode
+  remote_user: ubuntu
+  roles:
+  - hadoop-init
+
+- hosts: hadoop_namenode
+  remote_user: ubuntu
+  roles:
+  - hadoop-start-dfs
+  tags:
+  - start
+
+- hosts: hadoop_resourcemanager
+  remote_user: ubuntu
+  roles:
+  - hadoop-start-yarn
+  tags:
+  - start
+

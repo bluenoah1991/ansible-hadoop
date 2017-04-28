@@ -1,0 +1,7 @@
+---
+# This Task start all yarn nodes
+
+- name: Start all yarn nodes
+  shell: /usr/local/{{ hadoopDir }}/sbin/start-yarn.sh
+  become: yes
+  become_user: "{{ specialUser }}"

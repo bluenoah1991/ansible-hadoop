@@ -1,0 +1,5 @@
+---
+# Default variables
+
+specialUser: hadoop
+hadoopDir: hadoop-3.0.0-alpha2

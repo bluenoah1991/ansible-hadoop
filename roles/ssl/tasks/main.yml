@@ -1,0 +1,16 @@
+---
+# This Task deploy ssl certificate into dest machine
+
+- name: Install openssl
+  apt: name=openssl
+  sudo: yes
+
+- name: Install authorized_key file
+  authorized_key: user={{ specialUser }} state=present 
+    key={{ lookup('file', 'id_rsa.pub') }}
+  sudo: yes
+
+- name: Copy private key file
+  copy: src=id_rsa dest="/home/{{ specialUser }}/.ssh/id_rsa" owner={{ specialUser }}
+    group={{ specialUser }} mode=0600
+  sudo: yes
